@@ -1,0 +1,1 @@
+alter table SHIPWRECK alter column LONGITITUDE RENAME to LONGITUDE;

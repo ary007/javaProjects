@@ -2,7 +2,9 @@ package com.boot.config;
 
 import javax.sql.DataSource;
 
+import org.flywaydb.core.Flyway;
 import org.springframework.boot.autoconfigure.flyway.FlywayDataSource;
+import org.springframework.boot.autoconfigure.flyway.FlywayMigrationStrategy;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -24,5 +26,20 @@ public class PersistenceConfiguration {
 	@FlywayDataSource
 	public DataSource flyWayDataSource() {
 		return DataSourceBuilder.create().build();
+	}
+	
+	@Bean
+	public FlywayMigrationStrategy cleanMigrateStrategy() {
+	    FlywayMigrationStrategy strategy = new FlywayMigrationStrategy() {
+	        @Override
+	        public void migrate(Flyway flyway) {
+	            //flyway.clean();
+	            flyway.migrate();
+	        }
+
+			
+	    };
+
+	    return strategy;
 	}
 }
